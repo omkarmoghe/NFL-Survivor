@@ -1,0 +1,42 @@
+version: "3"
+services:
+  db:
+    image: "postgres:13"
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - "./nfl-survivor-db/postgresql.conf:/etc/postgresql/postgresql.conf:ro"
+      - "./nfl-survivor-db/data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGPORT: ${POSTGRES_PORT}
+    restart: unless-stopped
+  # nfl-survivor-client:
+  #   build: "./pandemic-client"
+  #   ports:
+  #     - "${CLIENT_PORT}:${CLIENT_PORT}"
+  #   volumes:
+  #     - "./pandemic-client/public:/pandemic-client/public"
+  #   restart: unless-stopped
+  #   environment:
+  #     CLIENT_PORT:
+  #   depends_on:
+  #     - pandemic-server
+  nfl-survivor:
+    build: "./nfl-survivor"
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - "./nfl-survivor/public:/nfl-survivor/public"
+      - "./nfl-survivor/app:/nfl-survivor/app"
+    depends_on:
+      - db
+    restart: unless-stopped
+    environment:
+      PORT:
+      POSTGRES_PASSWORD:
+      POSTGRES_PORT:
+      POSTGRES_USER:
+      RAILS_ENV:
