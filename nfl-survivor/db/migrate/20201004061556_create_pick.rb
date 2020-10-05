@@ -7,6 +7,7 @@ class CreatePick < ActiveRecord::Migration[6.0]
       t.integer :league_id, null: false
       t.boolean :locked, null: false, default: false
       t.string :outcome, null: false, default: "tbd"
+      t.integer :week, null: false
       t.timestamps
 
       t.index [:user_id, :league_id, :season_id], unique: true

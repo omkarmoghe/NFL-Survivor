@@ -27,6 +27,7 @@ class Season < ApplicationRecord
 
   has_many :leagues
   has_many :games
+  has_many :picks
 
   scope :active, -> { where("current_week >= 1 AND current_week < 20") }
   scope :current, lambda do

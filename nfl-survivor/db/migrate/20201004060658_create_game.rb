@@ -9,6 +9,9 @@ class CreateGame < ActiveRecord::Migration[6.0]
       t.integer :week, null: false, default: -1
       t.integer :season_id, null: false
       t.timestamps
+
+      t.index :week
+      t.index :season_id
     end
   end
 end

@@ -1,4 +1,6 @@
 class Pick < ApplicationRecord
+  include WeekConcern
+
   module Outcomes
     ALL = [
       CORRECT = "correct",
@@ -11,6 +13,8 @@ class Pick < ApplicationRecord
   belongs_to :team
   belongs_to :user
   belongs_to :league
+  # Picks are intentionally not linked to Games to allow Games to be easily
+  # moved or modified without having to migrate Picks.
 
   validates :season, presence: true
   validates :team, presence: true
@@ -22,4 +26,6 @@ class Pick < ApplicationRecord
   scope :correct, -> { where(outcome: Outcomes::CORRECT) }
   scope :incorrect, -> { where(outcome: Outcomes::INCORRECT) }
   scope :tbd, -> { where(outcome: Outcomes::TBD) }
+  scope :locked, -> { where(locked: true) }
+  scope :unlocked, -> { where(locked: false) }
 end
