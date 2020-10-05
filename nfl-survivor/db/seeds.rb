@@ -44,8 +44,7 @@
 end
 
 # Seasons
-current_year = Time.now.year
-current_season = Season.find_or_create_by!(
+current_season = Season.current.find_or_create_by!(
   start_year: current_year,
   end_year: current_year + 1,
 )

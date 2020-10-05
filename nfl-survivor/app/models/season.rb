@@ -27,4 +27,10 @@ class Season < ApplicationRecord
 
   has_many :leagues
   has_many :games
+
+  scope :active, -> { where("current_week >= 1 AND current_week < 20") }
+  scope :current, lambda do
+    current_year = Time.now.year
+    where("start_year => ? AND end_year <= ?", current_year, current_year)
+  end
 end
