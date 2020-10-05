@@ -32,7 +32,7 @@ services:
       - "./nfl-survivor/public:/nfl-survivor/public"
       - "./nfl-survivor/app:/nfl-survivor/app"
     depends_on:
-      - db
+      - "db"
     restart: unless-stopped
     environment:
       PORT:

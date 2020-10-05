@@ -6,7 +6,7 @@ class CreateGame < ActiveRecord::Migration[6.0]
       t.integer :home_team_id, null: false
       t.integer :home_team_score, null: false
       t.datetime :kickoff_at
-      t.integer :week, null: false
+      t.integer :week, null: false, default: -1
       t.integer :season_id, null: false
       t.timestamps
     end
