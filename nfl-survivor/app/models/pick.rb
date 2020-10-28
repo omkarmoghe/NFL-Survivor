@@ -7,6 +7,7 @@ class Pick < ApplicationRecord
       INCORRECT = "incorrect",
       TBD = "tbd",
     ]
+  end
 
   belongs_to :season
   include SeasonConcern
@@ -21,7 +22,7 @@ class Pick < ApplicationRecord
   validates :user, presence: true
   validates :league, presence: true
   validates :locked, presence: true
-  validates :outcome, presence: true, inclusion: { in: Outcomes:ALL }
+  validates :outcome, presence: true, inclusion: { in: Outcomes::ALL }
 
   scope :correct, -> { where(outcome: Outcomes::CORRECT) }
   scope :incorrect, -> { where(outcome: Outcomes::INCORRECT) }
